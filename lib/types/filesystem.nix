@@ -123,6 +123,8 @@
             [ pkgs.bcachefs-tools ]
           else if (config.format == "f2fs") then
             [ pkgs.f2fs-tools ]
+          else if (config.format == "exfat") then
+            [ pkgs.exfatprogs ]
           else
             [ ]
         );
