@@ -289,6 +289,10 @@ in
             partprobe "${config.device}" || : # sometimes partprobe fails, but the partitions are still up2date
             udevadm trigger --subsystem-match=block
             udevadm settle --timeout 120
+            ${lib.optionalString (partition.content != null && partition.content.format == "exfat") ''
+              # set `msftdata` flag on the partition
+              parted ${config.device} set ${toString partition._index} msftdata on
+            ''}
           ''
         ) sortedPartitions}
 
